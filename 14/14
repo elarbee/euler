@@ -1,0 +1,32 @@
+known_sums = {1: 1}
+
+def collatz(n):
+    return n/2 if n % 2 ==0 else (3*n) + 1
+
+
+def collatz_sequence(n):
+    sequence = [n]
+    while n != 1:
+        n = collatz(n)
+        sequence.append(n)
+    return sequence
+
+
+def collatz_sum(n):
+    t = n
+    s = 1
+    while t != 1:
+        t = collatz(t)
+        if t in known_sums:
+            s+=known_sums[t]
+            known_sums[n] = s
+            return s
+        s+=1
+n = 0
+max = 0
+for i in range(1,1000000):
+    s = collatz_sum(i)
+    if s>max:
+        max = s
+        n = i
+print n
